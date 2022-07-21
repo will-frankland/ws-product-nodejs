@@ -1,5 +1,7 @@
-const express = require('express')
-const pg = require('pg')
+const express = require('express');
+const rateLimiter = require('./rateLimiter');
+const pg = require('pg');
+
 
 const app = express()
 // configs come from standard PostgreSQL env vars
@@ -87,3 +89,5 @@ process.on('unhandledRejection', (reason, p) => {
   console.log('Unhandled Rejection at: Promise', p, 'reason:', reason)
   process.exit(1)
 })
+
+app.use(rateLimiter)
